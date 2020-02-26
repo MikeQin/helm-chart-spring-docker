@@ -144,3 +144,23 @@ helm install mydocker ./spring-docker-0.1.0.tgz
 ```shell
 helm uninstall mydocker
 ```
+
+## Helm Chart Repository (JFrog)
+
+[JFrog Helm Chart Repo](https://www.jfrog.com/confluence/display/RTF6X/Helm+Chart+Repositories)
+
+```shell
+helm repo add <REPO_KEY> http://<ARTIFACTORY_HOST>:<ARTIFACTORY_PORT>/artifactory/<REPO_KEY> <USERNAME> <PASSWORD>
+
+helm repo add helm-virtual https://jfrog-host:port/artifactory/helm-virtual --username username --password password
+
+# Upload/Deploy spring-docker-0.1.0.tgz to Helm Chart Repo
+# Use JFrog UI -> Deploy
+https://www.jfrog.com/confluence/display/RTF6X/Deploying+Artifacts
+
+# Update repo
+helm repo update
+
+# Install
+helm install helm-virtual/spring-docker --generate-name
+```
