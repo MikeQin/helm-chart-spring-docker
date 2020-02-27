@@ -27,6 +27,21 @@ From Chocolatey (Windows):
 choco install kubernetes-helm
 ```
 
+### Initialize Helm & Install Tiller
+
+Once you have Helm ready, you can initialize the local CLI and also install Tiller into your Kubernetes cluster in one step:
+
+```shell
+helm init --history-max 200
+```
+
+TIP: Setting --history-max on helm init is recommended as configmaps and other objects in helm history can grow large in number if not purged by max limit. Without a max history set the history is kept indefinitely, leaving a large number of records for helm and tiller to maintain.
+
+This will install Tiller into the Kubernetes cluster you saw with `kubectl config current-context`.
+
+- TIP: Want to install into a different cluster? Use the `--kube-context flag`.
+- TIP: When you want to upgrade Tiller, just run `helm init --upgrade`.
+
 ### Initialize a Helm Chart Repo
 
 ```shell
@@ -38,15 +53,16 @@ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 ```shell
 helm repo update  # Make sure we get the latest list of charts
 
+# Install a chart from repo
 helm install stable/mysql --generate-name
-# Released smiling-penguin
+# Output: Released smiling-penguin
 
 # show you a list of all deployed releases
 helm ls
 
 # Uninstall the release
 helm uninstall smiling-penguin
-# Removed smiling-penguin
+# Output: Removed smiling-penguin
 ```
 
 ### Three Big Concepts
