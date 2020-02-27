@@ -1,6 +1,6 @@
 # Deploy Spring Docker Using Helm Chart
 
-**[Quickstart Guide](https://helm.sh/docs/intro/quickstart/)**
+**[Quickstart Guide (Helm v3)](https://helm.sh/docs/intro/quickstart/)**
 
 ### Pre-requisites
 
@@ -28,25 +28,6 @@ From Chocolatey (Windows):
 ```shell
 choco install kubernetes-helm
 ```
-
-### (Legacy Helm v2) Initialize Helm & Install Tiller
-
-**Helm v3: This Step should NOT be performed**
-
-{
-Once you have Helm ready, you can initialize the local CLI and also install Tiller into your Kubernetes cluster in one step:
-
-```shell
-helm init --history-max 200
-```
-
-TIP: Setting --history-max on helm init is recommended as configmaps and other objects in helm history can grow large in number if not purged by max limit. Without a max history set the history is kept indefinitely, leaving a large number of records for helm and tiller to maintain.
-
-This will install Tiller into the Kubernetes cluster you saw with `kubectl config current-context`.
-
-- TIP: Want to install into a different cluster? Use the `--kube-context flag`.
-- TIP: When you want to upgrade Tiller, just run `helm init --upgrade`.
-}
 
 ### Initialize a Helm Chart Repo
 
