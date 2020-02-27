@@ -1,5 +1,7 @@
 # Deploy Spring Docker Using Helm Chart
 
+**[Quickstart Guide](https://helm.sh/docs/intro/quickstart/)**
+
 ### Pre-requisites
 
 The following prerequisites are required for a successful and properly secured use of Helm.
@@ -27,8 +29,11 @@ From Chocolatey (Windows):
 choco install kubernetes-helm
 ```
 
-### Initialize Helm & Install Tiller
+### (Legacy Helm v2) Initialize Helm & Install Tiller
 
+**Helm v3: This Step should NOT be performed**
+
+{
 Once you have Helm ready, you can initialize the local CLI and also install Tiller into your Kubernetes cluster in one step:
 
 ```shell
@@ -41,6 +46,7 @@ This will install Tiller into the Kubernetes cluster you saw with `kubectl confi
 
 - TIP: Want to install into a different cluster? Use the `--kube-context flag`.
 - TIP: When you want to upgrade Tiller, just run `helm init --upgrade`.
+}
 
 ### Initialize a Helm Chart Repo
 
