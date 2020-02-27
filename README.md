@@ -167,7 +167,7 @@ helm create mychart
 nano mychart/requirements.yaml
 ```
 
-requirements.yaml
+**requirements.yaml**
 ```yaml
 dpendencies:
   - name: mariadb
@@ -175,6 +175,7 @@ dpendencies:
     repository: https://kubernetes-charts.storage.googleapis.com
 ```
 
+**Deploy & Install**
 ```shell
 # Update dependencies
 helm dep update ./mychart
