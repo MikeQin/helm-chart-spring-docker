@@ -1,5 +1,7 @@
 # Deploy Spring Docker Using Helm Chart
 
+**[Quickstart Guide (Helm v3)](https://helm.sh/docs/intro/quickstart/)**
+
 ### Pre-requisites
 
 The following prerequisites are required for a successful and properly secured use of Helm.
@@ -38,15 +40,16 @@ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 ```shell
 helm repo update  # Make sure we get the latest list of charts
 
+# Install a chart from repo
 helm install stable/mysql --generate-name
-# Released smiling-penguin
+# Output: Released smiling-penguin
 
 # show you a list of all deployed releases
 helm ls
 
 # Uninstall the release
 helm uninstall smiling-penguin
-# Removed smiling-penguin
+# Output: Removed smiling-penguin
 ```
 
 ### Three Big Concepts
@@ -127,6 +130,20 @@ ports:
     protocol: TCP
 ```
 
+### Quick Install the Helm Chart
+
+```shell
+helm install --name my-spring-docker ./spring-docker --set service.type=NodePort
+```
+
+### Other Commands
+
+```shell
+helm upgrade --name my-spring-docker ./spring-docker
+helm rollback --name my-spring-docker ./spring-docker
+helm uninstall --name my-spring-docker
+```
+
 ### Package Charts
 
 ```shell
@@ -143,6 +160,52 @@ helm install mydocker ./spring-docker-0.1.0.tgz
 
 ```shell
 helm uninstall mydocker
+```
+
+## Create a Requirement Example
+
+```shell
+helm create mychart
+
+nano mychart/requirements.yaml
+```
+
+**requirements.yaml**
+```yaml
+dpendencies:
+  - name: mariadb
+    version: 0.6.0
+    repository: https://kubernetes-charts.storage.googleapis.com
+```
+
+**Deploy & Install**
+```shell
+# Update dependencies
+helm dep update ./mychart
+
+# Verify mariadb dependency added to charts directory
+tree mychart/
+
+# Deploy to K8s cluster
+helm install --name todo ./mychart --set service.type=NodePort
+
+# Grep
+kubectl get pods | grep todo
+
+# Package
+helm package todo mychart/
+
+# Share and Install by others
+helm install --name todo mychart-0.1.0.tgz --set service.type=NodePort
+
+# Add to local repository
+helm serve
+## Output:
+# Regenerating index. This may take a moment.
+# Now serving you on 127.0.0.1:8879
+
+# Go to browser
+http://127.0.0.1:8879
 ```
 
 ## Helm Chart Repository (JFrog)
